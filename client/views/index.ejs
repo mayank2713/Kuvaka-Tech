@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character encoding for the page -->
+    <meta charset="UTF-8">
+    
+    <!-- Viewport settings for responsive design on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>Real Time Chat Application</title>
+    
+    <!-- Link to external stylesheet for styling the chat interface -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Username input section -->
+        <div id="username-container">
+            <!-- Input field for entering username -->
+            <input id="username-input" placeholder="Enter your username" />
+            
+            <!-- Button to set the username -->
+            <button id="set-username">Username</button>
+        </div>
+
+        <!-- Display the username as a heading after it's set -->
+        <h2 id="username-heading" style="display: none;"></h2>
+
+        <!-- List of messages that will be displayed in the chat -->
+        <ul id="messages"></ul>
+
+        <!-- Display "No Messages Yet" if there are no messages -->
+        <div id="no-messages" style="display: none;">
+            No Messages Yet.
+        </div>
+
+        <!-- Message input area, initially hidden, will show after setting the username -->
+        <form id="chat-form" style="display: none;">
+            <!-- Input field for typing the message -->
+            <input id="message-input" autocomplete="off" placeholder="Type a message..." />
+            
+            <!-- Submit button for sending the message -->
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- Include the Socket.IO client-side library -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Initialize the Socket.IO connection
+        const socket = io();
+
+        // Reference to HTML elements
+        const usernameContainer = document.getElementById('username-container');
+        const usernameInput = document.getElementById('username-input');
+        const setUsernameBtn = document.getElementById('set-username');
+        const usernameHeading = document.getElementById('username-heading');
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+        const messages = document.getElementById('messages');
+        const noMessages = document.getElementById('no-messages');
+
+        // When the user sets their username
+        setUsernameBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim(); // Get the trimmed username value
+            if (username) { // Ensure that the username is not empty
+                // Emit a 'set username' event to the server with the username
+                socket.emit('set username', username);
+
+                // Hide the username input section and show the chat form
+                usernameContainer.style.display = 'none';
+                chatForm.style.display = 'flex';
+
+                // Set the displayed username as a heading
+                usernameHeading.textContent = `${username}`;
+                usernameHeading.style.display = 'block'; // Show the username heading
+            }
+        });
+
+        // Send message to the server when the chat form is submitted
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent default form submission behavior
+            if (messageInput.value.trim()) { // Ensure the message input is not empty
+                // Emit the 'chat message' event to the server with the message content
+                socket.emit('chat message', messageInput.value.trim());
+                
+                // Clear the message input field after sending
+                messageInput.value = '';
+            }
+        });
+
+        // Display incoming messages in the chat
+        socket.on('chat message', (msg) => {
+            const newItem = document.createElement('li'); // Create a new list item for the message
+            
+            // Check if the message is from the user (sent message)
+            if (msg.startsWith('You:')) {
+                newItem.classList.add('sent'); // Add class 'sent' for user messages
+            } else {
+                newItem.classList.add('received'); // Add class 'received' for other users' messages
+            }
+            newItem.textContent = msg; // Set the message content as the list item text
+            messages.appendChild(newItem); // Append the new message to the messages list
+
+            // Hide the "No Messages Yet" section when a message is received
+            noMessages.style.display = 'none';
+
+            // Scroll to the bottom of the messages list after a new message is added
+            messages.scrollTop = messages.scrollHeight;
+        });
+
+        // Function to check if there are no messages in the chat
+        function checkNoMessages() {
+            if (messages.children.length === 0) { // If there are no message list items
+                noMessages.style.display = 'flex';  // Show the "No Messages Yet" message
+            }
+        }
+
+        // Run the check to display "No Messages Yet" initially
+        checkNoMessages();
+    </script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+/* Base styles for the body */
+body {
+    font-family: 'Poppins', sans-serif; /* Use a modern and clean font */
+    background: linear-gradient(135deg, #FFEB3B, #4CAF50); /* Set a yellow to green gradient as the background */
+    color: #fff; /* White text color for better contrast */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Center align the content */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Hide any overflowing content */
+}
+
+/* Chat container styling */
+.chat-container {
+    width: 100%; /* Full width for responsiveness */
+    max-width: 600px; /* Maximum width for the chat container */
+    background: #ffffff; /* White background for a clean and minimal look */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Add some spacing inside the container */
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3); /* Add a subtle shadow for depth */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Space out the header, messages, and footer */
+    height: 80vh; /* Set the container height relative to the viewport */
+    border: 2px solid #FFEB3B; /* Yellow border for emphasis */
+}
+
+/* Styling for the username heading */
+#username-heading {
+    text-align: center; /* Center align the username heading */
+    font-size: 28px; /* Larger font size for prominence */
+    color: #4CAF50; /* Green color for the username */
+    margin-bottom: 20px; /* Add spacing below the heading */
+    font-weight: bold; /* Make the text bold */
+    display: none; /* Initially hidden, will display after username is set */
+}
+
+/* Username input container */
+#username-container {
+    display: flex; /* Arrange input and button in a row */
+    justify-content: space-between; /* Add space between the input and button */
+    margin-bottom: 10px; /* Add spacing below the container */
+}
+
+#username-input {
+    flex: 1; /* Allow the input to take up remaining space */
+    padding: 12px; /* Add inner padding */
+    border-radius: 25px; /* Rounded corners for a modern look */
+    border: 2px solid #4CAF50; /* Green border for the input */
+    margin-right: 10px; /* Add spacing to separate input from button */
+    font-size: 14px; /* Set font size for readability */
+    background: #f9f9f9; /* Light gray background for the input */
+    color: #333; /* Dark text color for readability */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus effects */
+}
+
+#username-input:focus {
+    border-color: #FFEB3B; /* Change border color to yellow when focused */
+    box-shadow: 0 0 10px #FFEB3B; /* Add a glowing effect */
+}
+
+/* Button styling */
+button {
+    background-color: #FFEB3B; /* Yellow background for buttons */
+    color: #333; /* Dark text color for contrast */
+    border: none; /* Remove the default border */
+    padding: 12px 25px; /* Add inner padding */
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer for interactivity */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effects */
+}
+
+button:hover {
+    background-color: #FFC107; /* Darker yellow for hover effect */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Styling for the messages area */
+#messages {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 60%; /* Set height to take up a portion of the container */
+    flex-grow: 1; /* Allow the messages area to grow within the container */
+    padding-right: 10px; /* Add padding to the right */
+}
+
+/* General styling for message items */
+#messages li {
+    padding: 15px 20px; /* Add inner padding for each message bubble */
+    border-radius: 20px; /* Rounded corners for message bubbles */
+    margin: 5px 0; /* Add vertical spacing between messages */
+    max-width: 80%; /* Limit the width of messages for readability */
+    position: relative; /* Relative positioning for pseudo-elements */
+    background-color: #A5D6A7; /* Light green for received messages */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth appearance effect */
+    opacity: 0; /* Initially hidden, will fade in */
+    animation: fadeInMessage 0.5s forwards; /* Fade-in animation */
+}
+
+/* Styling for sent messages */
+#messages li.sent {
+    background: #388E3C; /* Dark green for sent messages */
+    color: #fff; /* White text for better contrast */
+    margin-left: auto; /* Align sent messages to the right */
+    animation: fadeInMessage 0.5s forwards 0.2s; /* Slight delay for sent messages */
+}
+
+/* Styling for received messages */
+#messages li.received {
+    background: #A5D6A7; /* Light green for received messages */
+    color: #333; /* Dark text for readability */
+}
+
+/* Small dot before each received message */
+#messages li:before {
+    content: ''; /* Empty content for decorative purposes */
+    position: absolute; /* Position relative to the message bubble */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust position to center */
+    width: 10px; /* Small dot size */
+    height: 10px;
+    background: #FFEB3B; /* Yellow color for the dot */
+    border-radius: 50%; /* Make the dot circular */
+    left: -20px; /* Position to the left of the bubble */
+}
+
+/* Input field for messages */
+#message-input {
+    flex: 8; /* Take up 80% of the form width */
+    padding: 12px; /* Add inner padding */
+    border-radius: 20px; /* Rounded corners */
+    border: 1px solid #ddd; /* Light gray border */
+    font-size: 14px; /* Font size for readability */
+    margin-right: 15px; /* Add spacing between input and button */
+    border: 2px solid #4CAF50; /* Green border */
+    background: #f9f9f9; /* Light gray background */
+    color: #333; /* Dark text */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth focus effects */
+}
+
+#message-input:focus {
+    border-color: #FFEB3B; /* Yellow border when focused */
+    box-shadow: 0 0 10px #FFEB3B; /* Add glowing effect on focus */
+}
+
+/* The send button for messages */
+#chat-form {
+    display: flex; /* Arrange input and button side by side */
+    margin-top: 20px; /* Add spacing above the form */
+}
+
+#chat-form button {
+    background-color: #FFEB3B; /* Yellow background for the send button */
+    color: #333; /* Dark text color */
+    border: none; /* Remove default border */
+    padding: 12px 25px; /* Add inner padding */
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effects */
+}
+
+#chat-form button:hover {
+    background-color: #FFC107; /* Darker yellow on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Styling for the "No Messages Yet" text */
+#no-messages {
+    display: none; /* Initially hidden */
+    text-align: center; /* Center align the text */
+    color: #888; /* Gray text color */
+    font-size: 18px; /* Font size for readability */
+    padding: 20px; /* Add padding around the text */
+    position: absolute; /* Position in the center of the container */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the element */
+    border-radius: 10px; /* Rounded edges */
+}
+
+/* Smooth transition for the chat area */
+#messages {
+    transition: all 0.3s ease-in-out; /* Smooth appearance for new messages */
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Start invisible */
+    }
+    to {
+        opacity: 1; /* End fully visible */
+    }
+}
+
+/* Keyframes for message fade-in effect */
+@keyframes fadeInMessage {
+    from {
+        opacity: 0; /* Start invisible */
+        transform: translateY(20px); /* Start slightly below its final position */
+    }
+    to {
+        opacity: 1; /* End fully visible */
+        transform: translateY(0); /* End at its original position */
+    }
+}
