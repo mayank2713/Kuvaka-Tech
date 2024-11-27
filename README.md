@@ -5,6 +5,12 @@ This is a real-time chat application built using Node.js, Express, and Socket.IO
 - Real-time communication using WebSockets.
 - User-friendly chat interface.
 - Automatically serves client-side files when the server is running.
+- Real-time messaging using Socket.io.
+ - Set a username when joining the chat.
+ - Send and receive messages in real-time.
+ - Delete messages for everyone with a delete button next to each message.
+ - Responsive layout for both desktop and mobile screens.
+
 
 ## Prerequisites
 Make sure you have the following installed:
@@ -14,7 +20,7 @@ Make sure you have the following installed:
 # Installation Instructions
 ## Clone the repository:
 
-- git clone (https://github.com/ayuSh0614/Kuvaka-Backend)
+- git clone (https://github.com/mayank2713/Real-Time-Chat-Application)
 - cd ./server
 
 
@@ -40,7 +46,17 @@ Path - For handling file paths (comes with Node.js, no need to install).
 
 Starting the Application
 To start the application, navigate to the server directory and run:
--node /server.js
+
+
+1. /src/server.js
+Contains the backend logic for handling user connections and emitting events for messages and deletions.
+
+2. /public/styles.css
+Contains all the styling for the chat app including the input box, message bubbles, buttons, and layout.
+
+3. /public/index.ejs
+The front-end template that renders the chat interface, allowing users to send messages, set a username, and receive messages in real-time.
+
 
 This command automatically serves the client-side files and starts the server.
 Open your browser and go to http://localhost:3000 to access the chat application
