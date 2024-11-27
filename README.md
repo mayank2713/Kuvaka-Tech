@@ -1,4 +1,4 @@
-Real-Time Chat Application
+#Real-Time Chat Application
 This is a real-time chat application built using Node.js, Socket.io, and Nodemon. It allows multiple users to communicate in real-time, set usernames, and send messages.
 
 Features
